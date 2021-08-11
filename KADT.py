@@ -2,7 +2,7 @@
 # Kodi Addon Dev-tool (first rough draft, no fancy icons or tabs yet)
 # using appjar (pip3 install appjar)
 
-# import the needed library
+# import the needed librarys
 import re
 from appJar import gui
 
