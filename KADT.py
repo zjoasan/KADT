@@ -2,11 +2,9 @@
 # Kodi Addon Dev-tool (first rough draft, no fancy icons or tabs yet)
 # using appjar (pip3 install appjar)
 
-
-# import the library
+# import the needed library
 import re
 from appJar import gui
-
 
 # create a GUI variable called App
 App = gui("Addon Dev-tool", "1200x720")
@@ -14,9 +12,10 @@ App = gui("Addon Dev-tool", "1200x720")
 # Setting some needed globals
 Toolbarcount = 0
 
+#----------------------------------old code, yet to be removed
 objlabel = []
-
 objtype = []
+#----------------------------------end oldcode
 
 elename = ""
 focelename = "notusedyet"
@@ -67,7 +66,7 @@ elementlist = [
         'logicalop':""      #kodi element and/or for dependency
     }
 ]
-
+#------------------------------old code
 cpostring = ("# Addon language file \n"
 "msgid \"\"\n"
 "msgstr \"\"\n"
@@ -92,12 +91,15 @@ cpostring = ("# Addon language file \n"
 
 settingxml = ("<settings>\n"
     "<category label=\"32000\">\n")
+#----------------------------------------------end of old code
 
+# Toolbar options
 tools = ["-SEP-", "TEXT", "IP#", "NUMBER", "DATE", "TIME",
         "BOOL", "SELECT", "ADDON", "ENUM", "LABELENUM",
         "SLIDER", "FILE", "AUDIO", "VIDEO", "IMAGE",
         "EXECUTABLE", "FOLDER", "ACTION"]
 
+# Menu options
 fileMenus = ["Open", "Save", "Save as...", "-", "Export", "Print", "-", "Close"]
 
 def rmstrnum ( intext ):
@@ -191,7 +193,7 @@ def propabort():
     propclear()
     return
 
-def focname( obname ):
+def focname( obname ): # Needed since linux often focuses on the rightclick menu insted of the object that you clicked on
     global focelename
     focelename = obname
     return
@@ -257,8 +259,9 @@ def rcMenu (rcchoice):
                 App.removeEntry(relobj)
             elif relobj == "numbe":
                 App.removeNumericEntry(relobj)
+            # elif code to delete the other elementtypes and their related label when deleteing labels
             else:
-                # Here will be code to delete the other elementtypes and their related label when deleteing labels
+                
                 print(elename)
         elif temptype == "entry":
             App.removeLabel("label"+tempnum)
@@ -282,16 +285,18 @@ def rcMenu (rcchoice):
         elif temptype == "lsepe":
             App.removeLabel("sepel"+tempnum)
             App.removeLabel(elename)
+        # elif Here to delete the other elementtypes and their related label when deleteing elements
         else:
             print(elename)
     else:
-        # Here will be code to delete the other elementtypes and their related label when deleteing elements
+        # Here will be code for other rightclick choices
         print(rcchoice)
     return
 
 App.createRightClickMenu("Information", False)
 App.addMenuList("Information", ["Delete", "Properties"], rcMenu)
 
+#------------------------------ old "workingcode"
 def addxml ( objname, objnum):
     global Toolbarcount, objtype, objlabel, cpostring, settingxml
     entname = rmnumstr(objname)
@@ -335,6 +340,7 @@ def addxml ( objname, objnum):
     else:
         xmlstring =" invalid "
     return xmlstring
+#---------------------- end of old code
 
 def TbFunc( button ):
     global Toolbarcount, objtype, objlabel, cpostring, settingxml
@@ -357,7 +363,9 @@ def TbFunc( button ):
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
         App.setLabelRightClick("label" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         objlabel.append(App.getLabel("label" + str(Toolbarcount)))
+        #--------------------------- end of old code
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
         App.entry( "entry" + str(Toolbarcount), justify="left")
@@ -373,7 +381,9 @@ def TbFunc( button ):
         )
         App.setEntryOverFunction("entry" + str(Toolbarcount), [focname("entry" + str(Toolbarcount)), focname("entry" + str(Toolbarcount))])
         App.setEntryRightClick("entry" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         objtype.append("entry" + str(Toolbarcount))
+        #--------------------------- end of old code
         App.stopLabelFrame()
     elif button == 'IP#':
         App.openLabelFrame("Labels")
@@ -390,7 +400,9 @@ def TbFunc( button ):
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
         App.setLabelRightClick("label" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         objlabel.append(App.getLabel("label" + str(Toolbarcount)))
+        #--------------------------- end of old code
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
         App.addEntry("ipnum" + str(Toolbarcount))
@@ -408,7 +420,9 @@ def TbFunc( button ):
         )
         App.setEntryOverFunction("ipnum" + str(Toolbarcount), [focname("ipnum" + str(Toolbarcount)), focname("ipnum" + str(Toolbarcount))])
         App.setEntryRightClick("ipnum" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         objtype.append("ipnum" + str(Toolbarcount))
+        #--------------------------- end of old code
         App.stopLabelFrame()
     elif button == 'NUMBER':
         App.openLabelFrame("Labels")
@@ -425,7 +439,9 @@ def TbFunc( button ):
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
         App.setLabelRightClick("label" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         objlabel.append(App.getLabel("label"+str(Toolbarcount)))
+        #--------------------------- end of old code
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
         App.addNumericEntry("numbe"+str(Toolbarcount))
@@ -441,7 +457,9 @@ def TbFunc( button ):
         )
         App.setEntryOverFunction("numbe" + str(Toolbarcount), [focname("numbe" + str(Toolbarcount)), focname("numbe" + str(Toolbarcount))])
         App.setEntryRightClick("numbe" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         objtype.append("numbe"+str(Toolbarcount))
+        #--------------------------- end of old code
         App.stopLabelFrame()
     elif button == '-SEP-':
         App.openLabelFrame("Labels")
@@ -458,10 +476,12 @@ def TbFunc( button ):
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
         App.setLabelRightClick("sepel" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
         if lbltxt == "-":
             objlabel.append(" ")
         else:
             objlabel.append(lbltxt)
+        #--------------------------- end of old code
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
         if  lbltxt == "-":
@@ -477,7 +497,9 @@ def TbFunc( button ):
             )
             App.addLabel("seper"+ str(Toolbarcount),"-------------")
             App.setLabelRightClick("seper" + str(Toolbarcount), "Information")
-            objtype.append("seper"+str(Toolbarcount))
+            # -------------------------- old code still working
+            objtype.append("seper"+str(Toolbarcount)
+            #--------------------------- end of old code)
         else:
             elementlist.append(
                 {'guiname':"lsepe" + str(Toolbarcount),
@@ -491,12 +513,16 @@ def TbFunc( button ):
             )
             App.addLabel("lsepe"+ str(Toolbarcount),"-------------")
             App.setLabelRightClick("lsepe" + str(Toolbarcount), "Information")
+            # -------------------------- old code still working
             objtype.append("lsepe"+str(Toolbarcount))
+            #--------------------------- end of old code
         App.stopLabelFrame()
+    #elif for the rest of kodi elements
     else:
         # Do the default
-        print (button)
-    # Before return we should create the updated strings.po tab (old code)
+        print(button)
+    # -------------------------- old code still working
+    # Before return we should create the updated strings.po tab
     App.openTab("TabbedFrame", "stringspo")
     App.clearTextArea("potext")
     for x in range(len(objlabel)):
@@ -515,6 +541,7 @@ def TbFunc( button ):
     tmpxml = settingxml + aettingxml
     App.setTextArea("xmltext", tmpxml)
     App.stopTab()
+    
     return
 
 def MenuPress( menuchoice ):
@@ -561,6 +588,7 @@ App.addScrolledTextArea("addontxt")
 App.stopTab()
 App.stopTabbedFrame()
 
+#Setting up Properties subwindow
 App.startSubWindow("Properties", modal=True)
 App.addLabel("swhead", "Header" ,0,0,2,0)
 App.startLabelFrame("Descript", row=1, column=0, colspan=1, rowspan=35)
@@ -638,7 +666,6 @@ App.stopLabelFrame()
 App.addHorizontalSeparator(36,0,2,0, colour="red")
 App.addButton("Apply", propsave,37,0,0,0)
 App.addButton("Abort", propabort,37,1,0,0)
-
 App.setLabelTooltip("prop1", "Element ID(Kodi-uniquname)")
 App.setEntryTooltip("propent1", "The variable name stored in settings")
 App.setLabelTooltip("prop2", "Element type")
@@ -647,13 +674,10 @@ App.setLabelTooltip("prop3", "Element Label")
 App.setEntryTooltip("propent3", "Taken from gui Label, will be stored in stringspo")
 App.setLabelTooltip("prop4", "Element Help")
 App.setEntryTooltip("propent4", "Small tooltip")
-
 App.setLabelTooltip("prop5", "Element level(based on settings level)")
 App.setEntryTooltip("propent5", "0 - Basic, 1 - Standard, 2 - Advanced, 3 - Expert and 4 - Internal (will never be shown in the GUI)")
-
 App.setLabelTooltip("prop6", "Element Default value")
 App.setEntryTooltip("propent6", "Default value(taken from gui)")
-
 App.setLabelTooltip("prop7", "Constraint addontype")
 App.setEntryTooltip("propent7", "Example: xbmc.metadata.scraper.movies")
 App.setLabelTooltip("prop8", "Constraint allowempty")
@@ -672,7 +696,6 @@ App.setLabelTooltip("prop14", "Constraint max")
 App.setEntryTooltip("propent14", "Max value in a slider")
 App.setLabelTooltip("prop15", "Constraint sorting")
 App.setEntryTooltip("propent15", "Sorting of options in a list-box: accending|decending")
-
 App.setLabelTooltip("prop16", "Control type")
 App.setEntryTooltip("propent16", "edit|button|toggle|list|spinner|slider")
 App.setLabelTooltip("prop17", "Control format")
