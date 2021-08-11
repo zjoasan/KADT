@@ -20,6 +20,12 @@ objtype = []
 
 elename = ""
 focelename = "notusedyet"
+lblasso = [
+    {
+        'labelnm':"",
+        'objnm':""
+    }
+]
 
 elementlist = [
     {
@@ -104,35 +110,103 @@ def rmnumstr ( intext ):
     out_string = re.sub(pattern, '', intext)
     return out_string
 
+def propclear():
+    App.setEntry("propent1", "")
+    App.setEntry("propent2", "")
+    App.setEntry("propent3", "")
+    App.setEntry("propent4", "")
+    App.setEntry("propent5", "")
+    App.setEntry("propent6", "")
+    App.setEntry("propent6", "")
+    App.setEntry("propent7", "")
+    App.setEntry("propent8", "")
+    App.setEntry("propent9", "")
+    App.setEntry("propent10", "")
+    App.setEntry("propent11", "")
+    App.setEntry("propent12", "")
+    App.setEntry("propent13", "")
+    App.setEntry("propent14", "")
+    App.setEntry("propent15", "")
+    App.setEntry("propent16", "")
+    App.setEntry("propent17", "")
+    App.setEntry("propent18", "")
+    App.setEntry("propent19", "")
+    App.setEntry("propent20", "")
+    App.setEntry("propent21", "")
+    App.setEntry("propent22", "")
+    App.setEntry("propent23", "")
+    App.setEntry("propent24", "")
+    App.setEntry("propent25", "")
+    App.setEntry("propent26", "")
+    App.setEntry("propent27", "")
+    App.setEntry("propent28", "")
+    return
+
 def propsave():
+    tempname = App.getLabel("swhead")
+    temptype = rmnumstr(tempname)
+    tempnum = rmstrnum(tempname)
     App.hideSubWindow("Properties")
+    od = next(item for item in elementlist if item['guiname'] == tempname)
+    od['guiname'] = App.getLabel("swhead")
+    od['elid'] = App.getEntry("propent1")
+    od['eltyp'] = App.getEntry("propent2")
+    od['ellabel'] = App.getEntry("propent3")
+    od['elhelp'] = App.getEntry("propent4")
+    od['ellevel'] = App.getEntry("propent5")
+    od['eldefault'] = App.getEntry("propent6")
+    od['addontype'] = App.getEntry("propent7")
+    od['allowempty'] = App.getEntry("propent8")
+    od['writeable'] = App.getEntry("propent9")
+    od['masking'] = App.getEntry("propent10")
+    od['source'] = App.getEntry("propent11")
+    od['min'] = App.getEntry("propent12")
+    od['step'] = App.getEntry("propent13")
+    od['max'] = App.getEntry("propent14")
+    od['sorting'] = App.getEntry("propent15")
+    od['elctype'] = App.getEntry("propent16")
+    od['elformat'] = App.getEntry("propent17")
+    od['elcoption'] = App.getEntry("propent18")
+    od['elmultiselect'] = App.getEntry("propent19")
+    od['show'] = App.getEntry("propent20"),
+    od['adata'] = App.getEntry("propent21")
+    od['parent'] = App.getEntry("propent22")
+    od['dependencies'] = App.getEntry("propent23")
+    od['visible'] = App.getEntry("propent24")
+    od['enable'] = App.getEntry("propent25")
+    od['infobool'] = App.getEntry("propent26"),
+    od['condition'] = App.getEntry("propent27")
+    od['logicalop'] = App.getEntry("propent28")
+    print(str(od))
+    if temptype == "label":
+        App.setLabel(str(tempname), App.getEntry("propent3"))
+    else:
+        App.setEntry(tempname, App.getEntry("propent6"))
+        App.setLabel("label"+str(tempnum), App.getEntry("propent3"))
+    propclear()
     return
 
 def propabort():
     App.hideSubWindow("Properties")
+    propclear()
     return
 
 def focname( obname ):
     global focelename
-    print(obname)
-    print(focelename)
     focelename = obname
-    print(focelename)
     return
 
 def fillpropsw(elnm):
-    print("fillpropsw: " + elnm)
     propobj = next(dictionary for dictionary in elementlist if dictionary["guiname"] == elnm)
-    print (propobj)
-    print (elementlist)
     App.setEntry("propent1", propobj.get("elid"))
     App.setEntry("propent2", propobj.get("eltyp"))
     App.setEntry("propent3", propobj.get("ellabel"))
     App.setEntry("propent4", propobj.get("elhelp"))
     App.setEntry("propent5", propobj.get("ellevel"))
-    if rmstrnum(elnm) == "label":
+    if rmnumstr(elnm) == "label":
         App.setEntry("propent6", str(App.getLabel(elnm)))
-    App.setEntry("propent6", str(App.getEntry(elnm)))
+    else: 
+        App.setEntry("propent6", str(App.getEntry(elnm)))
     App.setEntry("propent7", propobj.get("addontype"))
     App.setEntry("propent8", propobj.get("allowempty"))
     App.setEntry("propent9", propobj.get("writeable"))
@@ -162,25 +236,61 @@ def rcMenu (rcchoice):
     elename = App.getFocus()
     if elename == None:
         elename = focelename
-    nums = rmstrnum(elename)
-    App.setLabel("swhead", elename)
-    fillpropsw(elename)
-    App.showSubWindow("Properties")
-    #if rcchoice is Properties
-    # open subwindow for properties
-    #elif rcchoice is Delete
-    # delete elename object
-
-    print (elename)
-
+    elif elename == "Information":
+        elename = focelename
+    if rcchoice == "Properties":
+        App.setLabel("swhead", elename)
+        fillpropsw(elename)
+        App.showSubWindow("Properties")
+    elif rcchoice == "Delete":
+        temptype = rmnumstr(elename)
+        tempnum = rmstrnum(elename)
+        if temptype == "label":
+            App.removeLabel(elename)
+            objectis = next(item for item in lblasso if item['labelnm'] == elename)
+            relobj = objectis['objnm']
+            relobjshort = rmnumstr(relobj)
+            reloobjnum = rmstrnum(relobj)
+            if relobj == "entry":
+                App.removeEntry(relobj)
+            elif relobj == "ipnum":
+                App.removeEntry(relobj)
+            elif relobj == "numbe":
+                App.removeNumericEntry(relobj)
+            else:
+                # Here will be code to delete the other elementtypes and their related label when deleteing labels
+                print(elename)
+        elif temptype == "entry":
+            App.removeLabel("label"+tempnum)
+            App.removeEntry(elename)
+        elif temptype == "ipnum":
+            App.removeLabel("label"+tempnum)
+            App.removeEntry(elename)
+        elif temptype == "numbe":
+            App.removeLabel("label"+tempnum)
+            App.removeNumericEntry(elename)
+        elif temptype == "sepel":
+            if App.getLabel(elename) == "-":
+                App.removeLabel(elename)
+                App.removeLabel("seper"+tempnum)
+            else:
+                App.removeLabel(elename)
+                App.removeLabel("lsepe"+tempnum)
+        elif temptype == "seper":
+            App.removeLabel("sepel"+tempnum)
+            App.removeLabel(elename)
+        elif temptype == "lsepe":
+            App.removeLabel("sepel"+tempnum)
+            App.removeLabel(elename)
+        else:
+            print(elename)
+    else:
+        # Here will be code to delete the other elementtypes and their related label when deleteing elements
+        print(rcchoice)
     return
 
 App.createRightClickMenu("Information", False)
 App.addMenuList("Information", ["Delete", "Properties"], rcMenu)
-
-
-
-
 
 def addxml ( objname, objnum):
     global Toolbarcount, objtype, objlabel, cpostring, settingxml
@@ -284,6 +394,8 @@ def TbFunc( button ):
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
         App.addEntry("ipnum" + str(Toolbarcount))
+        App.setEntryDefault("ipnum" + str(Toolbarcount), "127.0.0.1")
+        App.setEntryWidth("ipnum" + str(Toolbarcount),16)
         elementlist.append(
             {'guiname':"ipnum" + str(Toolbarcount),
             'elid':"ipnum" + str(Toolbarcount), 'eltyp':"string", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
@@ -316,7 +428,7 @@ def TbFunc( button ):
         objlabel.append(App.getLabel("label"+str(Toolbarcount)))
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
-        App.addNumericEntry("numbe"+str(Toolbarcount),0)
+        App.addNumericEntry("numbe"+str(Toolbarcount))
         elementlist.append(
             {'guiname':"numbe" + str(Toolbarcount),
             'elid':"numbe" + str(Toolbarcount), 'eltyp':"integer", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
@@ -352,18 +464,19 @@ def TbFunc( button ):
             objlabel.append(lbltxt)
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
-        App.addHorizontalSeparator()
         if  lbltxt == "-":
             elementlist.append(
                 {'guiname':"seper" + str(Toolbarcount),
-                'elid':"seper" + str(Toolbarcount), 'eltyp':"sep", 'ellabel':lbltxt, 'elhelp':"",
+                'elid':"seper" + str(Toolbarcount), 'eltyp':"sep", 'ellabel':"", 'elhelp':"",
                 'ellevel':"0",
-                'eldefault':lbltxt,
+                'eldefault':"",
                 'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
                 'elctype':"edit",'elformat':"string", 'elcoption':"", 'elmultiselect':"", 'show':"", 'adata':"",
                 'parent':"",
                 'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
             )
+            App.addLabel("seper"+ str(Toolbarcount),"-------------")
+            App.setLabelRightClick("seper" + str(Toolbarcount), "Information")
             objtype.append("seper"+str(Toolbarcount))
         else:
             elementlist.append(
@@ -376,12 +489,14 @@ def TbFunc( button ):
                 'parent':"",
                 'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
             )
+            App.addLabel("lsepe"+ str(Toolbarcount),"-------------")
+            App.setLabelRightClick("lsepe" + str(Toolbarcount), "Information")
             objtype.append("lsepe"+str(Toolbarcount))
         App.stopLabelFrame()
     else:
         # Do the default
         print (button)
-    # Before return we should create the updated strings.po tab
+    # Before return we should create the updated strings.po tab (old code)
     App.openTab("TabbedFrame", "stringspo")
     App.clearTextArea("potext")
     for x in range(len(objlabel)):
@@ -392,7 +507,7 @@ def TbFunc( button ):
     tmpstring = cpostring + apostring
     App.setTextArea("potext", tmpstring)
     App.stopTab()
-    # Before we retorn we should populate xml tab too
+    # Before we retorn we should populate xml tab too (old code)
     App.openTab("TabbedFrame", "xml")
     App.clearTextArea("xmltext")
     for x in range(len(objtype)):
