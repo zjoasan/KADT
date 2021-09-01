@@ -1,5 +1,6 @@
 #!/usr/bin/python3 
 # Kodi Addon Dev-tool (first rough draft, no fancy icons or tabs yet)
+#learning github in vscode"
 # using appjar (pip3 install appjar)
 
 # import the needed librarys
