@@ -588,7 +588,7 @@ def TbFunc( button ):
             'parent':"",
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
-        App.setEntryOverFunction("ttime" + str(Toolbarcount), [focname("ttimw" + str(Toolbarcount)), focname("ttime" + str(Toolbarcount))])
+        App.setEntryOverFunction("ttime" + str(Toolbarcount), [focname("ttime" + str(Toolbarcount)), focname("ttime" + str(Toolbarcount))])
         App.setEntryRightClick("ttime" + str(Toolbarcount), "Information")
         # -------------------------- old code still working
         objtype.append("ttime" + str(Toolbarcount))
