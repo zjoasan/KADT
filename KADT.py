@@ -498,7 +498,7 @@ def TbFunc( button ):
             App.addLabel("seper"+ str(Toolbarcount),"-------------")
             App.setLabelRightClick("seper" + str(Toolbarcount), "Information")
             # -------------------------- old code still working
-            objtype.append("seper"+str(Toolbarcount)
+            objtype.append("seper"+str(Toolbarcount))
             #--------------------------- end of old code)
         else:
             elementlist.append(
@@ -518,6 +518,82 @@ def TbFunc( button ):
             #--------------------------- end of old code
         App.stopLabelFrame()
     #elif for the rest of kodi elements
+    elif button == 'DATE':
+        App.openLabelFrame("Labels")
+        lbltxt = App.stringBox("Date input", "Label for Date-input?")
+        App.addLabel( "label" + str(Toolbarcount), text = lbltxt )
+        App.setLabelOverFunction("label" + str(Toolbarcount), [focname("label" + str(Toolbarcount)), focname("label" + str(Toolbarcount))])
+        elementlist.append(
+            {'guiname':"label" + str(Toolbarcount),
+            'elid':"label" + str(Toolbarcount), 'eltyp':"string", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
+            'ellevel':"0",
+            'eldefault':"2021-09-02",
+            'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
+            'elctype':"edit",'elformat':"string", 'elcoption':"", 'elmultiselect':"", 'show':"", 'adata':"",
+            'parent':"",
+            'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
+        )
+        App.setLabelRightClick("label" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
+        objlabel.append(App.getLabel("label" + str(Toolbarcount)))
+        #--------------------------- end of old code
+        App.stopLabelFrame()
+        App.openLabelFrame("Objects")
+        App.entry( "ddate" + str(Toolbarcount), justify="left")
+        elementlist.append(
+            {'guiname':"ddate" + str(Toolbarcount),
+            'elid':"ddate" + str(Toolbarcount), 'eltyp':"date", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
+            'ellevel':"0",
+            'eldefault':App.getEntry("ddate" + str(Toolbarcount)),
+            'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
+            'elctype':"edit",'elformat':"date", 'elcoption':"", 'elmultiselect':"", 'show':"", 'adata':"",
+            'parent':"",
+            'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
+        )
+        App.setEntryOverFunction("ddate" + str(Toolbarcount), [focname("entry" + str(Toolbarcount)), focname("entry" + str(Toolbarcount))])
+        App.setEntryRightClick("ddate" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
+        objtype.append("ddate" + str(Toolbarcount))
+        #--------------------------- end of old code
+        App.stopLabelFrame()
+    elif button == 'TIME':
+        App.openLabelFrame("Labels")
+        lbltxt = App.stringBox("Time input", "Label for Time-input?")
+        App.addLabel( "label" + str(Toolbarcount), text = lbltxt )
+        App.setLabelOverFunction("label" + str(Toolbarcount), [focname("label" + str(Toolbarcount)), focname("label" + str(Toolbarcount))])
+        elementlist.append(
+            {'guiname':"label" + str(Toolbarcount),
+            'elid':"label" + str(Toolbarcount), 'eltyp':"string", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
+            'ellevel':"0",
+            'eldefault':"2021-09-02",
+            'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
+            'elctype':"edit",'elformat':"string", 'elcoption':"", 'elmultiselect':"", 'show':"", 'adata':"",
+            'parent':"",
+            'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
+        )
+        App.setLabelRightClick("label" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
+        objlabel.append(App.getLabel("label" + str(Toolbarcount)))
+        #--------------------------- end of old code
+        App.stopLabelFrame()
+        App.openLabelFrame("Objects")
+        App.entry( "ttime" + str(Toolbarcount), justify="left")
+        elementlist.append(
+            {'guiname':"ttime" + str(Toolbarcount),
+            'elid':"ttime" + str(Toolbarcount), 'eltyp':"time", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
+            'ellevel':"0",
+            'eldefault':App.getEntry("ddate" + str(Toolbarcount)),
+            'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
+            'elctype':"edit",'elformat':"time", 'elcoption':"", 'elmultiselect':"", 'show':"", 'adata':"",
+            'parent':"",
+            'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
+        )
+        App.setEntryOverFunction("ttime" + str(Toolbarcount), [focname("entry" + str(Toolbarcount)), focname("entry" + str(Toolbarcount))])
+        App.setEntryRightClick("ttime" + str(Toolbarcount), "Information")
+        # -------------------------- old code still working
+        objtype.append("ttime" + str(Toolbarcount))
+        #--------------------------- end of old code
+        App.stopLabelFrame()
     else:
         # Do the default
         print(button)
@@ -541,7 +617,7 @@ def TbFunc( button ):
     tmpxml = settingxml + aettingxml
     App.setTextArea("xmltext", tmpxml)
     App.stopTab()
-    
+
     return
 
 def MenuPress( menuchoice ):
