@@ -535,7 +535,7 @@ def TbFunc( button ):
         )
         App.setLabelRightClick("label" + str(Toolbarcount), "Information")
         # -------------------------- old code still working
-        objlabel.append(App.getLabel("ddate" + str(Toolbarcount)))
+        objlabel.append(App.getLabel("label" + str(Toolbarcount)))
         #--------------------------- end of old code
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
@@ -580,7 +580,7 @@ def TbFunc( button ):
         App.entry( "ttime" + str(Toolbarcount), justify="left")
         elementlist.append(
             {'guiname':"ttime" + str(Toolbarcount),
-            'elid':"ttime" + str(Toolbarcount), 'eltyp':"time", 'ellabel':App.getLabel("ttime" + str(Toolbarcount)), 'elhelp':"",
+            'elid':"ttime" + str(Toolbarcount), 'eltyp':"time", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
             'ellevel':"0",
             'eldefault':App.getEntry("ttime" + str(Toolbarcount)),
             'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
