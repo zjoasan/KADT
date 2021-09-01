@@ -535,7 +535,7 @@ def TbFunc( button ):
         )
         App.setLabelRightClick("label" + str(Toolbarcount), "Information")
         # -------------------------- old code still working
-        objlabel.append(App.getLabel("label" + str(Toolbarcount)))
+        objlabel.append(App.getLabel("ddate" + str(Toolbarcount)))
         #--------------------------- end of old code
         App.stopLabelFrame()
         App.openLabelFrame("Objects")
@@ -550,7 +550,7 @@ def TbFunc( button ):
             'parent':"",
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
-        App.setEntryOverFunction("ddate" + str(Toolbarcount), [focname("entry" + str(Toolbarcount)), focname("entry" + str(Toolbarcount))])
+        App.setEntryOverFunction("ddate" + str(Toolbarcount), [focname("ddate" + str(Toolbarcount)), focname("ddate" + str(Toolbarcount))])
         App.setEntryRightClick("ddate" + str(Toolbarcount), "Information")
         # -------------------------- old code still working
         objtype.append("ddate" + str(Toolbarcount))
@@ -580,15 +580,15 @@ def TbFunc( button ):
         App.entry( "ttime" + str(Toolbarcount), justify="left")
         elementlist.append(
             {'guiname':"ttime" + str(Toolbarcount),
-            'elid':"ttime" + str(Toolbarcount), 'eltyp':"time", 'ellabel':App.getLabel("label" + str(Toolbarcount)), 'elhelp':"",
+            'elid':"ttime" + str(Toolbarcount), 'eltyp':"time", 'ellabel':App.getLabel("ttime" + str(Toolbarcount)), 'elhelp':"",
             'ellevel':"0",
-            'eldefault':App.getEntry("ddate" + str(Toolbarcount)),
+            'eldefault':App.getEntry("ttime" + str(Toolbarcount)),
             'addontype':"", 'allowempty':"true", 'writeable':"", 'masking':"", 'source':"", 'min':"", 'step':"", 'max':"", 'sorting':"",
             'elctype':"edit",'elformat':"time", 'elcoption':"", 'elmultiselect':"", 'show':"", 'adata':"",
             'parent':"",
             'dependencies':"", 'visible':"true", 'enable':"true", 'infobool':"", 'condition':"", 'logicalop':""}
         )
-        App.setEntryOverFunction("ttime" + str(Toolbarcount), [focname("entry" + str(Toolbarcount)), focname("entry" + str(Toolbarcount))])
+        App.setEntryOverFunction("ttime" + str(Toolbarcount), [focname("ttimw" + str(Toolbarcount)), focname("ttime" + str(Toolbarcount))])
         App.setEntryRightClick("ttime" + str(Toolbarcount), "Information")
         # -------------------------- old code still working
         objtype.append("ttime" + str(Toolbarcount))
