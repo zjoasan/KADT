@@ -113,6 +113,12 @@ def rmnumstr ( intext ):
     out_string = re.sub(pattern, '', intext)
     return out_string
 
+def reqw():
+    return
+
+def addonsave():
+    return
+
 def propclear():
     App.setEntry("propent1", "")
     App.setEntry("propent2", "")
@@ -664,6 +670,137 @@ App.startTab("addon")
 App.addScrolledTextArea("addontxt")
 App.stopTab()
 App.stopTabbedFrame()
+
+#Settings for addon.xml
+App.startSubWindow("Addon", modal=True)
+App.addLabel("swhead", "Header" ,0,0,2,0)
+App.startLabelFrame("Descript", row=1, column=0, colspan=1, rowspan=35)
+App.addLabel("addon1", "ID" )
+App.addLabel("addon2", "Name" )
+App.addLabel("addon3", "Version" )
+App.addLabel("addon4", "Provider-name" )
+App.addLabel("addon5", "Require more" ) #radio, click opens subwindow
+App.addLabel("addon6", "Extension" ) #dropdown
+App.addLabel("addon7", "Library attribute" )
+App.addLabel("addon8", "Provides" ) #dropdown
+App.addHorizontalSeparator(9,0,0,0, colour="blue")
+App.addLabel("addon9", "Summary" )
+App.addLabel("addon10", "Description" )
+App.addLabel("addon11", "Disclaimer" )
+App.addLabel("addon12", "News" )
+App.addLabel("addon13", "Platform" ) #dropdown
+App.addLabel("addon14", "Language" ) #dropdown
+App.addLabel("addon15", "License" )
+App.addLabel("addon16", "Forum" )
+App.addLabel("addon17", "Website" )
+App.addLabel("addon18", "Source" )
+App.addLabel("addon19", "Email" )
+App.addLabel("addon20", "Lifecyclestate" ) #dropdown
+App.addHorizontalSeparator(21,0,0,0, colour="blue")
+App.addLabel("addon21", "Icon" )
+App.addLabel("addon22", "Fanart" )
+App.addLabel("addon23", "Screenshot" )
+App.addLabel("addon24", "Banner" )
+App.addLabel("addon25", "Clearlogo" ) 
+App.stopLabelFrame()
+App.startLabelFrame("Input", row=1, column=1, colspan=1, rowspan=35)
+App.entry("adpropent1",focus=True)
+App.entry("adpropent2")
+App.entry("adpropent3")
+App.entry("adpropent4")
+App.addCheckBox("Yess...")
+App.setCheckBoxChangeFunction("Yess...", reqw())
+App.entry("adpropent7")
+App.addOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.script",
+    "xbmc.gui.skin", "xbmc.webinterface", "xbmc.addon.repository",
+    "xbmc.service", "xbmc.metadata.scraper.albums", "xbmc.metadata.scraper.artists",
+    "xbmc.metadata.scraper.movies", "xbmc.metadata.scraper.musicvideos", "xbmc.metadata.scraper.tvshows",
+    "xbmc.metadata.scraper.library", "xbmc.ui.screensaver", "xbmc.player.musicviz",
+    "xbmc.python.weather", "xbmc.subtitle.module", "xbmc.python.lyrics",
+    "xbmc.python.library", "xbmc.python.module", "xbmc.addon.video",
+    "xbmc.addon.audio", "xbmc.addon.image", "kodi.resource.font",
+    "kodi.resource.images", "kodi.resource.language", "kodi.resource.uisounds"
+])
+App.addHorizontalSeparator(9,0,0,0, colour="blue")
+App.entry("adpropent9")
+App.entry("adpropent10")
+App.entry("adpropent11")
+App.entry("adpropent12")
+App.addOptionBox("asprop13", ["all", "linux", "osx", "osx64", "osx-x86_64", "osx32", "osx-i686", "ios", "ios-armv7", "ios-aarch64", "windx", "windows", "windows-i686", 
+    "windows-x86_64", "windowsstore", "android", "android-armv7", "android-aarch64", "android-i686", "tvos", "tvos-aarch64"
+])
+App.addOptionBox("adpropent14", ["en_gb", "af_za", "am_et", "ar_sa", "ast_es", "az_az", "be_by", "bg_bg", "bs_ba", "ca_es", "cs_cz", "cy_gb", "da_dk",
+    "de_de", "el_gr", "en_au", "en_nz", "en_us", "eo", "es_ar", "es_es", "es_mx", "et_ee", "eu_es", "fa_af", "fa_ir", "fi_fi", "fo_fo", "fr_ca", "fr_fr",
+    "gl_es", "he_il", "hi_in", "hr_hr", "hu_hu", "hy_am", "id_id", "is_is", "it_it", "ja_jp", "kn_in", "ko_kr", "lt_lt", "lv_lv", "mi", "mk_mk", "ml_in", "mn_mn",
+    "ms_my", "mt_mt", "my_mm", "nb_no", "nl_nl", "pl_pl", "pt_br", "pt_pt", "ro_ro", "ru_ru", "si_lk", "sk_sk", "sl_si", "sq_al", "sr_rs", "sr_rs@latin", "sv_se", "szl",
+    "ta_in", "te_in", "tg_tj", "th_th", "tr_tr", "uk_ua", "uz_uz", "vi_vn", "zh_cn","zh_tw"
+])
+App.entry("adpropent15")
+App.entry("adpropent16")
+App.entry("adpropent17")
+App.entry("adpropent18")
+App.entry("adpropent19")
+App.addOptionBox("asprop20", ["normal", "broken", "deprecated"])
+App.entry("adpropent21")
+App.entry("adpropent22")
+App.entry("adpropent23")
+App.entry("adpropent24")
+App.entry("adpropent25")
+App.stopLabelFrame()
+App.addHorizontalSeparator(26,0,2,0, colour="red")
+App.addButton("Apply", addonsave(),27,0,0,0)
+
+App.setLabelTooltip("addon1", "label_help_text_here_1")
+App.setEntryTooltip("adpropent1", "entry_help_text_here_1")
+App.setLabelTooltip("addon2", "label_help_text_here_2")
+App.setEntryTooltip("adpropent2", "entry_help_text_here_2")
+App.setLabelTooltip("addon3", "label_help_text_here_3")
+App.setEntryTooltip("adpropent3", "entry_help_text_here_3")
+App.setLabelTooltip("addon4", "label_help_text_here_1")
+App.setEntryTooltip("adpropent4", "entry_help_text_here_4")
+App.setLabelTooltip("addon5", "If clicked will open subwindow")
+App.setCheckBoxTooltip("adpropent5", "new window to enter requirements")
+App.setLabelTooltip("addon6", "label_help_text_here_6")
+App.setEntryTooltip("adpropent6", "entry_help_text_here_6")
+App.setLabelTooltip("addon7", "label_help_text_here_7")
+App.setEntryTooltip("adpropent7", "entry_help_text_here_7")
+App.setLabelTooltip("addon8", "label_help_text_here_8")
+App.setEntryTooltip("adpropent8", "entry_help_text_here_8")
+App.setLabelTooltip("addon9", "label_help_text_here_9")
+App.setEntryTooltip("adpropent9", "entry_help_text_here_9")
+App.setLabelTooltip("addon10", "label_help_text_here_10")
+App.setEntryTooltip("adpropent10", "entry_help_text_here_10")
+App.setLabelTooltip("addon11", "label_help_text_here_11")
+App.setEntryTooltip("adpropent11", "entry_help_text_here_11")
+App.setLabelTooltip("addon12", "label_help_text_here_12")
+App.setEntryTooltip("adpropent12", "entry_help_text_here_12")
+App.setLabelTooltip("addon13", "label_help_text_here_13")
+App.setEntryTooltip("adpropent13", "entry_help_text_here_13")
+App.setLabelTooltip("addon14", "label_help_text_here_14")
+App.setEntryTooltip("adpropent14", "entry_help_text_here_14")
+App.setLabelTooltip("addon15", "label_help_text_here_15")
+App.setEntryTooltip("adpropent15", "entry_help_text_here_15")
+App.setLabelTooltip("addon16", "label_help_text_here_16")
+App.setEntryTooltip("adpropent16", "entry_help_text_here_16")
+App.setLabelTooltip("addon17", "label_help_text_here_17")
+App.setEntryTooltip("adpropent17", "entry_help_text_here_17")
+App.setLabelTooltip("addon18", "label_help_text_here_18")
+App.setEntryTooltip("adpropent18", "entry_help_text_here_18")
+App.setLabelTooltip("addon19", "label_help_text_here_19")
+App.setEntryTooltip("adpropent19", "entry_help_text_here_19")
+App.setLabelTooltip("addon20", "label_help_text_here_20")
+App.setEntryTooltip("adpropent20", "entry_help_text_here_20")
+App.setLabelTooltip("addon21", "label_help_text_here_21")
+App.setEntryTooltip("adpropent21", "entry_help_text_here_21")
+App.setLabelTooltip("addon22", "label_help_text_here_22")
+App.setEntryTooltip("adpropent22", "entry_help_text_here_22")
+App.setLabelTooltip("addon23", "label_help_text_here_23")
+App.setEntryTooltip("adpropent23", "entry_help_text_here_23")
+App.setLabelTooltip("addon24", "label_help_text_here_24")
+App.setEntryTooltip("adpropent24", "entry_help_text_here_24")
+App.setLabelTooltip("addon25", "label_help_text_here_25")
+App.setEntryTooltip("adpropent25", "entry_help_text_here_25")
+
 
 #Setting up Properties subwindow
 App.startSubWindow("Properties", modal=True)
