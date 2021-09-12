@@ -682,38 +682,43 @@ App.stopTabbedFrame()
 
 #Settings for addon.xml
 App.startSubWindow("Addon", modal=True)
-App.addLabel("adhead", "Header" ,0,0,2,0)
-App.startLabelFrame("LabelHere", row=1, column=0, colspan=1, rowspan=35)
-App.addLabel("addon1", "ID" )
-App.addLabel("addon2", "Name" )
-App.addLabel("addon3", "Version" )
-App.addLabel("addon4", "Provider-name" )
-App.addLabel("addon5", "Require more" ) #radio, click opens subwindow
-App.addLabel("addon6", "Extension" ) #dropdown
-App.addLabel("addon7", "Library attribute" )
-App.addLabel("addon8", "Provides" ) #dropdown
-App.addHorizontalSeparator(9,0,0,0, colour="blue")
-App.addLabel("addon9", "Summary" )
-App.addLabel("addon10", "Description" )
-App.addLabel("addon11", "Disclaimer" )
-App.addLabel("addon12", "News" )
-App.addLabel("addon13", "Platform" ) #dropdown
-App.addLabel("addon14", "Language" ) #dropdown
-App.addLabel("addon15", "License" )
-App.addLabel("addon16", "Forum" )
-App.addLabel("addon17", "Website" )
-App.addLabel("addon18", "Source" )
-App.addLabel("addon19", "Email" )
-App.addLabel("addon20", "Lifecyclestate" ) #dropdown
-App.addHorizontalSeparator(21,0,0,0, colour="blue")
-App.addLabel("addon21", "Icon" )
-App.addLabel("addon22", "Fanart" )
-App.addLabel("addon23", "Screenshot" )
-App.addLabel("addon24", "Banner" )
-App.addLabel("addon25", "Clearlogo" ) 
+App.addLabel("adhead", "Addon.xml" ,0,0,2,0)
+App.startLabelFrame("LabelHere", row=1, column=0, colspan=1, rowspan=29)
+App.setStretch('both')
+App.setSticky('news')
+App.addLabel("addon1", "ID", 2 )
+App.addLabel("addon2", "Name", 3 )
+App.addLabel("addon3", "Version", 4 )
+App.addLabel("addon4", "Provider-name", 5 )
+App.addLabel("addon5", "Require more", 6) #radio, click opens subwindow
+App.addLabel("addspc", " ", 7)
+App.addLabel("addon6", "Extension",8 ) #dropdown
+App.addLabel("addon7", "Library attribute",9 )
+App.addLabel("addon8", "Provides", 10 ) #dropdown
+App.addHorizontalSeparator(11,0,0,0, colour="blue")
+App.addLabel("addon9", "Summary",12 )
+App.addLabel("addon10", "Description",13 )
+App.addLabel("addon11", "Disclaimer",14 )
+App.addLabel("addon12", "News",15 )
+App.addLabel("addon13", "Platform",16 ) #dropdown
+App.addLabel("addon14", "Language",17 ) #dropdown
+App.addLabel("addon15", "License",18 )
+App.addLabel("addon16", "Forum",19 )
+App.addLabel("addon17", "Website",20 )
+App.addLabel("addon18", "Source",21 )
+App.addLabel("addon19", "Email",22 )
+App.addLabel("addon20", "Lifecyclestate",23 ) #dropdown
+App.addHorizontalSeparator(24,0,0,0, colour="blue")
+App.addLabel("addon21", "Icon",25 )
+App.addLabel("addon22", "Fanart",26 )
+App.addLabel("addon23", "Screenshot",27 )
+App.addLabel("addon24", "Banner",28 )
+App.addLabel("addon25", "Clearlogo",29 ) 
 App.stopLabelFrame()
-App.startLabelFrame("InputHere", row=1, column=1, colspan=1, rowspan=35)
-App.entry("adpropent1",focus=True)
+App.startLabelFrame("InputHere", row=1, column=1, colspan=1, rowspan=29)
+App.setStretch('both')
+App.setSticky('news')
+App.entry("adpropent1", focus=True,)
 App.entry("adpropent2")
 App.entry("adpropent3")
 App.entry("adpropent4")
@@ -721,9 +726,9 @@ App.addRadioButton("addon", "Yes")
 App.addRadioButton("addon", "No")
 App.setRadioButton("addon", "No", callFunction=False)
 App.setRadioButtonChangeFunction("addon", reqw)
-App.addLabelOptionBox("adpropent6", ["image","audio","video","executable"])
+App.addOptionBox("adpropent6", ["image","audio","video","executable"])
 App.entry("adpropent7")
-App.addLabelOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.script",
+App.addOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.script",
     "xbmc.gui.skin", "xbmc.webinterface", "xbmc.addon.repository",
     "xbmc.service", "xbmc.metadata.scraper.albums", "xbmc.metadata.scraper.artists",
     "xbmc.metadata.scraper.movies", "xbmc.metadata.scraper.musicvideos", "xbmc.metadata.scraper.tvshows",
@@ -733,15 +738,15 @@ App.addLabelOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.sc
     "xbmc.addon.audio", "xbmc.addon.image", "kodi.resource.font",
     "kodi.resource.images", "kodi.resource.language", "kodi.resource.uisounds"
 ])
-App.addHorizontalSeparator(9,0,0,0, colour="blue")
+App.addHorizontalSeparator(11,0,0,0, colour="blue")
 App.entry("adpropent9")
 App.entry("adpropent10")
 App.entry("adpropent11")
 App.entry("adpropent12")
-App.addLabelOptionBox("adpropent13", ["all", "linux", "osx", "osx64", "osx-x86_64", "osx32", "osx-i686", "ios", "ios-armv7", "ios-aarch64", "windx", "windows", "windows-i686", 
+App.addOptionBox("adpropent13", ["all", "linux", "osx", "osx64", "osx-x86_64", "osx32", "osx-i686", "ios", "ios-armv7", "ios-aarch64", "windx", "windows", "windows-i686", 
     "windows-x86_64", "windowsstore", "android", "android-armv7", "android-aarch64", "android-i686", "tvos", "tvos-aarch64"
 ])
-App.addLabelOptionBox("adpropent14", ["en_gb", "af_za", "am_et", "ar_sa", "ast_es", "az_az", "be_by", "bg_bg", "bs_ba", "ca_es", "cs_cz", "cy_gb", "da_dk",
+App.addOptionBox("adpropent14", ["en_gb", "af_za", "am_et", "ar_sa", "ast_es", "az_az", "be_by", "bg_bg", "bs_ba", "ca_es", "cs_cz", "cy_gb", "da_dk",
     "de_de", "el_gr", "en_au", "en_nz", "en_us", "eo", "es_ar", "es_es", "es_mx", "et_ee", "eu_es", "fa_af", "fa_ir", "fi_fi", "fo_fo", "fr_ca", "fr_fr",
     "gl_es", "he_il", "hi_in", "hr_hr", "hu_hu", "hy_am", "id_id", "is_is", "it_it", "ja_jp", "kn_in", "ko_kr", "lt_lt", "lv_lv", "mi", "mk_mk", "ml_in", "mn_mn",
     "ms_my", "mt_mt", "my_mm", "nb_no", "nl_nl", "pl_pl", "pt_br", "pt_pt", "ro_ro", "ru_ru", "si_lk", "sk_sk", "sl_si", "sq_al", "sr_rs", "sr_rs@latin", "sv_se", "szl",
@@ -752,15 +757,16 @@ App.entry("adpropent16")
 App.entry("adpropent17")
 App.entry("adpropent18")
 App.entry("adpropent19")
-App.addLabelOptionBox("adpropent20", ["normal", "broken", "deprecated"])
+App.addOptionBox("adpropent20", ["normal", "broken", "deprecated"])
+App.addHorizontalSeparator(24,0,0,0, colour="blue")
 App.entry("adpropent21")
 App.entry("adpropent22")
 App.entry("adpropent23")
 App.entry("adpropent24")
 App.entry("adpropent25")
 App.stopLabelFrame()
-App.addHorizontalSeparator(26,0,2,0, colour="red")
-App.addButton("Apply", addonsave(),27,0,0,0)
+App.addHorizontalSeparator(30,0,2,0, colour="red")
+App.addButton("Apply", addonsave(),31,0,2,0)
 
 App.setLabelTooltip("addon1", "label_help_text_here_1")
 App.setEntryTooltip("adpropent1", "entry_help_text_here_1")
