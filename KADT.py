@@ -116,7 +116,13 @@ def rmnumstr ( intext ):
 def reqw():
     return
 
+
+def addpop():
+    App.showSubWindow("Addon")
+    return
+    
 def addonsave():
+    App.hideSubWindow("Addon")
     return
 
 def propclear():
@@ -633,6 +639,8 @@ def MenuPress( menuchoice ):
         # here comes the call to code to make a gui out of a xml
     elif menuchoice == 'Save':
         filesave=App.saveBox(title="Save", fileName=None, dirName=None, fileExt=".xml", fileTypes=None, asFile=None, parent=None)
+    elif menuchoice == 'Close':
+        App.stop()
     return
 
 
@@ -641,6 +649,7 @@ App.setBg("grey")
 App.setFont(10)
 
 App.addMenuList("File", fileMenus, MenuPress)
+App.addMenuItem("Properties", "Addon.xml", addpop)
 App.addMenuItem("appJar", "Help", App.appJarHelp)
 App.addMenuItem("appJar", "About", App.appJarAbout)
 
@@ -803,7 +812,7 @@ App.setLabelTooltip("addon24", "label_help_text_here_24")
 App.setEntryTooltip("adpropent24", "entry_help_text_here_24")
 App.setLabelTooltip("addon25", "label_help_text_here_25")
 App.setEntryTooltip("adpropent25", "entry_help_text_here_25")
-
+App.stopSubWindow()
 
 #Setting up Properties subwindow
 App.startSubWindow("Properties", modal=True)
