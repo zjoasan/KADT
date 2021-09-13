@@ -18,6 +18,8 @@ objlabel = []
 objtype = []
 #----------------------------------end oldcode
 
+reqimp = ""
+lcsa = ""
 elename = ""
 focelename = "notusedyet"
 lblasso = [
@@ -113,16 +115,76 @@ def rmnumstr ( intext ):
     out_string = re.sub(pattern, '', intext)
     return out_string
 
-def reqw():
+def reqsave():
+    global reqimp
+    for x in range(0, 37):
+        if App.getEntry("reqent"+str((x+1))) != "":
+            reqimp=reqimp + "\t\t<import addon=\"" + App.getEntry("reqent"+str((x+1))) + "\" version=\"" + App.enableEntry("reqent"+str((x+1))+"v") + "\"/>\n"
+    App.hideSubWindow("Requirements")
     return
 
+def reqw():
+    numruq = App.integerBox("numreqs", "How many requierments do you want to add?(1,8)", parent=None)
+    for x in numruq:
+        App.enableEntry("reqent"+str((x+1)))
+        App.show("reqent"+str((x+1)))
+        App.enableEntry("reqent"+str((x+1))+"v")
+        App.show("reqent"+str((x+1))+"v")
+    App.showSubWindow("Requirements")
+    return
+
+def lcsq():
+    global lcsa
+    lcsa = App.stringBox("licystque", "What is the reason smessage?", parent=None)
+    return
 
 def addpop():
     App.showSubWindow("Addon")
     return
-    
+
 def addonsave():
+    global reqimp, lcsa
+    adlang = str(App.getOptionBox("adpropent14"))
+    prov_lang = adlang[:2]
     App.hideSubWindow("Addon")
+    addtxt = ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+        "<addon id=\"" + App.getEntry("adpropent1") + "\" name=\"" + App.getEntry("adpropent2") + "\" version=\"" + App.getEntry("adpropent3") + "\" provider-name=\"" + App.getEntry("adpropent4") + "\">\n"
+        "\t<requires>\n"
+        "\t\t<import addon=\"xbmc.python\" version=\"3.0.0\"/>n"
+    )
+    if App.getRadioButton("addonrb") == "Yes":
+        addtxt = addtxt + reqimp
+    addtxt = addtxt + ("\t</requires>\n\t<extension point=\"" + str(App.getOptionBox("adpropent6")) + "\" library=\"" + App.getEntry("adpropent7") + "\">\n"
+        "\t\t<provides>" + str(App.getOptionBox("adpropent8")) + "</provides>\n\t</extension>\n"
+        "\t<extension point=\"xbmc.addon.metadata\">\n"
+        "\t\t<summary lang=\"" + str(App.getOptionBox("adpropent14")) + "\">" + App.getEntry("adpropent9") + "</summary>\n"
+        "\t\t<description lang=\"" + str(App.getOptionBox("adpropent14")) + "\">" + App.getEntry("adpropent10") + "</description>\n"
+        "\t\t<disclaimer lang=\"" + str(App.getOptionBox("adpropent14")) + "\">" + App.getEntry("adpropent11") + "</disclaimer>\n"
+        "\t\t<language>" + prov_lang + "</language> <!-- the language of the videos or other content the plugin provides, may be omitted in case the addon does not provide any content -->\n"
+        "\t\t<platform>" + str(App.getOptionBox("adpropent13")) + "</platform>\n"
+        "\t\t<license>" + App.getEntry("adpropent15") + "</license>\n"
+        "\t\t<forum>" + App.getEntry("adpropent16") + "</forum> <!-- may be omitted  -->\n"
+        "\t\t<website>" + App.getEntry("adpropent17") + "</website> <!-- the url of the website that contains the videos (or the official website of your plugin). May be omitted.  -->\n"
+        "\t\t<email>" + App.getEntry("adpropent18") + "</email> <!-- may be omitted  -->\n"
+        "\t\t<source>" + App.getEntry("adpropent19") + "</source>\n"
+        "\t\t<news>" + App.getEntry("adpropent12") + "</news>\n"
+    )
+    if lcsa != "":
+        addtxt = addtxt + "\t\t<lifecyclestate type=\"" + str(App.getOptionBox("adpropent20")) + "\">" + lcsa + "</lifecyclestate>\n"
+    addtxt = addtxt + ("\t\t<assets>\n"
+        "\t\t\t<icon>" + App.getEntry("adpropent21") + "</icon>\n"
+        "\t\t\t<fanart>" + App.getEntry("adpropent22") + "<</fanart>\n"
+        "\t\t\t<banner>" + App.getEntry("adpropent23") + "<</banner> <!-- optional -->\n"
+        "\t\t\t<clearlogo>" + App.getEntry("adpropent24") + "<</clearlogo> <!-- optional  -->\n"
+        "\t\t\t<screenshot>" + App.getEntry("adpropent25") + "<</screenshot> <!-- optional, max 10  -->\n"
+        "\t\t</assets>\n"
+        "\t</extension>\n"
+        "</addon>\n"
+    )
+    App.openTab("TabbedFrame", "addon")
+    App.clearTextArea("addontxt")
+    App.setTextArea("addontxt", addtxt)
+    App.stopTab()
     return
 
 def propclear():
@@ -220,7 +282,7 @@ def fillpropsw(elnm):
     App.setEntry("propent5", propobj.get("ellevel"))
     if rmnumstr(elnm) == "label":
         App.setEntry("propent6", str(App.getLabel(elnm)))
-    else: 
+    else:
         App.setEntry("propent6", str(App.getEntry(elnm)))
     App.setEntry("propent7", propobj.get("addontype"))
     App.setEntry("propent8", propobj.get("allowempty"))
@@ -274,7 +336,6 @@ def rcMenu (rcchoice):
                 App.removeNumericEntry(relobj)
             # elif code to delete the other elementtypes and their related label when deleteing labels
             else:
-                
                 print(elename)
         elif temptype == "entry":
             App.removeLabel("label"+tempnum)
@@ -323,7 +384,8 @@ def addxml ( objname, objnum):
 	        "\t<control type=\"edit\" format=\"string\">\n"
 	        "\t\t<heading>" + str(32001 + objnum) + "</heading>\n"
 	        "\t</control>\n"
-            "</setting>\n\n")
+            "</setting>\n\n"
+        )
     elif entname == "ipnum":
         xmlstring = ("<setting id=\"" + objname + "\" type=\"string\" label=\"#" + str(32001 + objnum) + "\" help=\"\">\n"
 	        "\t<level>0</level>\n"
@@ -334,7 +396,8 @@ def addxml ( objname, objnum):
 	        "\t<control type=\"edit\" format=\"ip\">\n"
 	        "\t\t<heading>" + str(32001 + objnum) + "</heading>\n"
 	        "\t</control>\n"
-            "</setting>\n\n")
+            "</setting>\n\n"
+        )
     elif entname == "numbe":
         xmlstring = ("<setting id=\"" + objname + "\" type=\"integer\" label=\"#" + str(32001 + objnum) + "\" help=\"\">n"
 	        "\t<level>0</level>\n"
@@ -345,7 +408,8 @@ def addxml ( objname, objnum):
 	        "\t<control type=\"edit\" format=\"integer\">\n"
 	        "\t\t<heading>" + str(32001 + objnum) + "</heading>\n"
 	        "\t</control>\n"
-            "</setting>\n\n")
+            "</setting>\n\n"
+        )
     elif entname == "seper":
         xmlstring = "<setting type=\"sep\"/>\n"
     elif entname == "lsepe":
@@ -680,6 +744,66 @@ App.addScrolledTextArea("addontxt")
 App.stopTab()
 App.stopTabbedFrame()
 
+#Subwindow for requirements in addons.xml
+App.startSubWindow("Requirements", modal=True)
+App.addLabel("reqs", "Requirements for your addon")
+App.startLabelFrame("Addon-name", row=1, column=0, colspan=1, rowspan=8)
+App.setStretch('both')
+App.setSticky('news')
+App.entry("reqent1", focus=True)
+App.entry("reqent2")
+App.entry("reqent3")
+App.entry("reqent4")
+App.entry("reqent5")
+App.entry("reqent6")
+App.entry("reqent7")
+App.entry("reqent8")
+App.stopLabelFrame()
+App.startLabelFrame("Version", row=1, column=1, colspan=0, rowspan=8)
+App.entry("reqent1v", focus=True)
+App.entry("reqent2v")
+App.entry("reqent3v")
+App.entry("reqent4v")
+App.entry("reqent5v")
+App.entry("reqent6v")
+App.entry("reqent7v")
+App.entry("reqent8v")
+App.stopLabelFrame()
+App.hideEntry('reqent1')
+App.disableEntry('reqent1')
+App.hideEntry('reqent1v')
+App.disableEntry('reqent1v')
+App.hideEntry('reqent2')
+App.disableEntry('reqent2')
+App.hideEntry('reqent2v')
+App.disableEntry('reqent2v')
+App.hideEntry('reqent3')
+App.disableEntry('reqent3')
+App.hideEntry('reqent3v')
+App.disableEntry('reqent3v')
+App.hideEntry('reqent4')
+App.disableEntry('reqent4')
+App.hideEntry('reqent4v')
+App.disableEntry('reqent4v')
+App.hideEntry('reqent5')
+App.disableEntry('reqent5')
+App.hideEntry('reqent5v')
+App.disableEntry('reqent5v')
+App.hideEntry('reqent6')
+App.disableEntry('reqent6')
+App.hideEntry('reqent6v')
+App.disableEntry('reqent6v')
+App.hideEntry('reqent7')
+App.disableEntry('reqent7')
+App.hideEntry('reqent7v')
+App.disableEntry('reqent7v')
+App.hideEntry('reqent8')
+App.disableEntry('reqent8')
+App.hideEntry('reqent8v')
+App.disableEntry('reqent8v')
+App.addButton("Save", reqsave)
+App.stopSubWindow()
+
 #Settings for addon.xml
 App.startSubWindow("Addon", modal=True)
 App.addLabel("adhead", "Addon.xml" ,0,0,2,0)
@@ -713,19 +837,19 @@ App.addLabel("addon21", "Icon",25 )
 App.addLabel("addon22", "Fanart",26 )
 App.addLabel("addon23", "Screenshot",27 )
 App.addLabel("addon24", "Banner",28 )
-App.addLabel("addon25", "Clearlogo",29 ) 
+App.addLabel("addon25", "Clearlogo",29 )
 App.stopLabelFrame()
 App.startLabelFrame("InputHere", row=1, column=1, colspan=1, rowspan=29)
 App.setStretch('both')
 App.setSticky('news')
-App.entry("adpropent1", focus=True,)
+App.entry("adpropent1", focus=True)
 App.entry("adpropent2")
 App.entry("adpropent3")
 App.entry("adpropent4")
-App.addRadioButton("addon", "Yes")
-App.addRadioButton("addon", "No")
-App.setRadioButton("addon", "No", callFunction=False)
-App.setRadioButtonChangeFunction("addon", reqw)
+App.addRadioButton("addonrb", "Yes")
+App.addRadioButton("addonrb", "No")
+App.setRadioButton("addonrb", "No", callFunction=False)
+App.setRadioButtonChangeFunction("addonrb", reqw)
 App.addOptionBox("adpropent6", ["image","audio","video","executable"])
 App.entry("adpropent7")
 App.addOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.script",
@@ -758,16 +882,18 @@ App.entry("adpropent17")
 App.entry("adpropent18")
 App.entry("adpropent19")
 App.addOptionBox("adpropent20", ["normal", "broken", "deprecated"])
+App.setOptionBoxChangeFunction("adpropent20", lcsq)
 App.addHorizontalSeparator(24,0,0,0, colour="blue")
 App.entry("adpropent21")
+App.setEntry("adpropent21","resources/icon.png")
 App.entry("adpropent22")
+App.setEntry("adpropent22","resources/fanart.jpg")
 App.entry("adpropent23")
 App.entry("adpropent24")
 App.entry("adpropent25")
 App.stopLabelFrame()
 App.addHorizontalSeparator(30,0,2,0, colour="red")
-App.addButton("Apply", addonsave(),31,0,2,0)
-
+App.addButton("Apply", addonsave,31,0,2,0)
 App.setLabelTooltip("addon1", "label_help_text_here_1")
 App.setEntryTooltip("adpropent1", "entry_help_text_here_1")
 App.setLabelTooltip("addon2", "label_help_text_here_2")
@@ -777,7 +903,7 @@ App.setEntryTooltip("adpropent3", "entry_help_text_here_3")
 App.setLabelTooltip("addon4", "label_help_text_here_1")
 App.setEntryTooltip("adpropent4", "entry_help_text_here_4")
 App.setLabelTooltip("addon5", "If clicked will open subwindow")
-App.setRadioButtonTooltip("addon", "new window to enter requirements")
+App.setRadioButtonTooltip("addonrb", "new window to enter requirements")
 App.setLabelTooltip("addon6", "label_help_text_here_6")
 App.setOptionBoxTooltip("adpropent6", "entry_help_text_here_6")
 App.setLabelTooltip("addon7", "label_help_text_here_7")
@@ -824,6 +950,8 @@ App.stopSubWindow()
 App.startSubWindow("Properties", modal=True)
 App.addLabel("swhead", "Header" ,0,0,2,0)
 App.startLabelFrame("Descript", row=1, column=0, colspan=1, rowspan=35)
+App.setStretch('both')
+App.setSticky('news')
 App.addLabel("prop1", "ID" )
 App.addLabel("prop2", "Type" )
 App.addLabel("prop3", "Label" )
@@ -860,6 +988,8 @@ App.addLabel("prop27", "Condition" )
 App.addLabel("prop28", "LogicalOp" )
 App.stopLabelFrame()
 App.startLabelFrame("Input", row=1, column=1, colspan=1, rowspan=35)
+App.setStretch('both')
+App.setSticky('news')
 App.entry("propent1")
 App.entry("propent2")
 App.entry("propent3")
