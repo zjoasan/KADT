@@ -19,6 +19,7 @@ objtype = []
 #----------------------------------end oldcode
 
 reqimp = ""
+numreq = 0
 lcsa = ""
 elename = ""
 focelename = "notusedyet"
@@ -116,26 +117,25 @@ def rmnumstr ( intext ):
     return out_string
 
 def reqsave():
-    global reqimp
-    for x in range(0, 37):
+    global reqimp, numreq
+    for x in range(0, numreq):
         if App.getEntry("reqent"+str((x+1))) != "":
-            reqimp=reqimp + "\t\t<import addon=\"" + App.getEntry("reqent"+str((x+1))) + "\" version=\"" + App.enableEntry("reqent"+str((x+1))+"v") + "\"/>\n"
+            reqimp=reqimp + "\t\t<import addon=\"" + App.getEntry("reqent"+str(x+1)) + "\" version=\"" + App.enableEntry("reqent"+str(x+1)+"v") + "\"/>\n"
     App.hideSubWindow("Requirements")
     return
 
 def reqw():
+    global numreq
     numruq = App.integerBox("numreqs", "How many requierments do you want to add?(1,8)", parent=None)
-    for x in numruq:
-        App.enableEntry("reqent"+str((x+1)))
-        App.show("reqent"+str((x+1)))
-        App.enableEntry("reqent"+str((x+1))+"v")
-        App.show("reqent"+str((x+1))+"v")
+    for x in range(0, numruq):
+        App.showEntry("reqent"+str(x+1))
+        App.showEntry("reqent"+str(x+1)+"v")
     App.showSubWindow("Requirements")
     return
 
 def lcsq():
     global lcsa
-    lcsa = App.stringBox("licystque", "What is the reason smessage?", parent=None)
+    lcsa = App.stringBox("licystque", "What is the reason message?", parent=None)
     return
 
 def addpop():
@@ -150,9 +150,9 @@ def addonsave():
     addtxt = ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
         "<addon id=\"" + App.getEntry("adpropent1") + "\" name=\"" + App.getEntry("adpropent2") + "\" version=\"" + App.getEntry("adpropent3") + "\" provider-name=\"" + App.getEntry("adpropent4") + "\">\n"
         "\t<requires>\n"
-        "\t\t<import addon=\"xbmc.python\" version=\"3.0.0\"/>n"
+        "\t\t<import addon=\"xbmc.python\" version=\"3.0.0\"/>\n"
     )
-    if App.getRadioButton("addonrb") == "Yes":
+    if reqimp != "":
         addtxt = addtxt + reqimp
     addtxt = addtxt + ("\t</requires>\n\t<extension point=\"" + str(App.getOptionBox("adpropent6")) + "\" library=\"" + App.getEntry("adpropent7") + "\">\n"
         "\t\t<provides>" + str(App.getOptionBox("adpropent8")) + "</provides>\n\t</extension>\n"
@@ -760,7 +760,7 @@ App.entry("reqent7")
 App.entry("reqent8")
 App.stopLabelFrame()
 App.startLabelFrame("Version", row=1, column=1, colspan=0, rowspan=8)
-App.entry("reqent1v", focus=True)
+App.entry("reqent1v")
 App.entry("reqent2v")
 App.entry("reqent3v")
 App.entry("reqent4v")
@@ -770,38 +770,23 @@ App.entry("reqent7v")
 App.entry("reqent8v")
 App.stopLabelFrame()
 App.hideEntry('reqent1')
-App.disableEntry('reqent1')
 App.hideEntry('reqent1v')
-App.disableEntry('reqent1v')
 App.hideEntry('reqent2')
-App.disableEntry('reqent2')
 App.hideEntry('reqent2v')
-App.disableEntry('reqent2v')
 App.hideEntry('reqent3')
-App.disableEntry('reqent3')
 App.hideEntry('reqent3v')
-App.disableEntry('reqent3v')
 App.hideEntry('reqent4')
-App.disableEntry('reqent4')
 App.hideEntry('reqent4v')
-App.disableEntry('reqent4v')
 App.hideEntry('reqent5')
-App.disableEntry('reqent5')
 App.hideEntry('reqent5v')
-App.disableEntry('reqent5v')
 App.hideEntry('reqent6')
-App.disableEntry('reqent6')
 App.hideEntry('reqent6v')
-App.disableEntry('reqent6v')
 App.hideEntry('reqent7')
-App.disableEntry('reqent7')
 App.hideEntry('reqent7v')
-App.disableEntry('reqent7v')
 App.hideEntry('reqent8')
-App.disableEntry('reqent8')
 App.hideEntry('reqent8v')
-App.disableEntry('reqent8v')
-App.addButton("Save", reqsave)
+App.setSticky('ews')
+App.addButton("Save", reqsave,10,0,2,0)
 App.stopSubWindow()
 
 #Settings for addon.xml
