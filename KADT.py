@@ -22,6 +22,7 @@ reqimp = ""
 numreq = 0
 lcsa = ""
 elename = ""
+addonname = "not_set_yet"
 focelename = "notusedyet"
 lblasso = [
     {
@@ -70,7 +71,7 @@ elementlist = [
         'logicalop':""      #kodi element and/or for dependency
     }
 ]
-#------------------------------old code
+
 cpostring = ("# Addon language file \n"
 "msgid \"\"\n"
 "msgstr \"\"\n"
@@ -86,16 +87,15 @@ cpostring = ("# Addon language file \n"
 "\"Language: en\n\""
 "\"Plural-Forms: nplurals=2; plural=(n != 1);\n\""
 "\n"
-"#. Strings for $addonname\n"  #replace $addonname name with addon-properties window in the future
+"#. Strings for "+ addonname +"\n"  #replace $addonname name with addon-properties window in the future
 "\n"
 "msgctxt \"#32000\" \n"
-"msgid \"$addonname Configuration\" \n"
+"msgid \""+ addonname +" Configuration\" \n"
 "msgstr \"\"\n"
 "\n")
 
 settingxml = ("<settings>\n"
     "<category label=\"32000\">\n")
-#----------------------------------------------end of old code
 
 # Toolbar options
 tools = ["-SEP-", "TEXT", "IP#", "NUMBER", "DATE", "TIME",
@@ -119,7 +119,7 @@ def rmnumstr ( intext ):
 def reqsave():
     global reqimp, numreq
     for x in range(0, numreq):
-        if App.getEntry("reqent"+str((x+1))) != "":
+        if App.getEntry("reqent"+str(x+1)) != "":
             reqimp=reqimp + "\t\t<import addon=\"" + App.getEntry("reqent"+str(x+1)) + "\" version=\"" + App.enableEntry("reqent"+str(x+1)+"v") + "\"/>\n"
     App.hideSubWindow("Requirements")
     return
@@ -147,6 +147,7 @@ def addonsave():
     adlang = str(App.getOptionBox("adpropent14"))
     prov_lang = adlang[:2]
     App.hideSubWindow("Addon")
+    addonname = App.getEntry("adpropent2")
     addtxt = ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
         "<addon id=\"" + App.getEntry("adpropent1") + "\" name=\"" + App.getEntry("adpropent2") + "\" version=\"" + App.getEntry("adpropent3") + "\" provider-name=\"" + App.getEntry("adpropent4") + "\">\n"
         "\t<requires>\n"
