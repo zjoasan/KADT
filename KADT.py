@@ -23,6 +23,7 @@ numreq = 0
 lcsa = ""
 elename = ""
 addonname = "not_set_yet"
+addonlang = "not_set_yet"
 focelename = "notusedyet"
 lblasso = [
     {
@@ -84,7 +85,7 @@ cpostring = ("# Addon language file \n"
 "\"MIME-Version: 1.0\n\""
 "\"Content-Type: text/plain; charset=UTF-8\n\""
 "\"Content-Transfer-Encoding: 8bit\n\""
-"\"Language: en\n\""
+"\"Language: " + addonlang + "\n\""
 "\"Plural-Forms: nplurals=2; plural=(n != 1);\n\""
 "\n"
 "#. Strings for "+ addonname +"\n"  #replace $addonname name with addon-properties window in the future
@@ -143,7 +144,7 @@ def addpop():
     return
 
 def addonsave():
-    global reqimp, lcsa
+    global reqimp, lcsa, addonlang, addonname
     adlang = str(App.getOptionBox("adpropent14"))
     prov_lang = adlang[:2]
     App.hideSubWindow("Addon")
@@ -182,6 +183,7 @@ def addonsave():
         "\t</extension>\n"
         "</addon>\n"
     )
+    addonlang = prov_lang
     App.openTab("TabbedFrame", "addon")
     App.clearTextArea("addontxt")
     App.setTextArea("addontxt", addtxt)
@@ -708,7 +710,9 @@ def MenuPress( menuchoice ):
         App.stop()
     return
 
-
+#-------------------------------------------------------------
+# From here and below is just GUI-drawing and event triggering
+#-------------------------------------------------------------
 
 App.setBg("grey")
 App.setFont(10)
@@ -830,15 +834,14 @@ App.setStretch('both')
 App.setSticky('news')
 App.entry("adpropent1", focus=True)
 App.entry("adpropent2")
+App.setEntry("adpropent2", addonname)
 App.entry("adpropent3")
 App.entry("adpropent4")
 App.addRadioButton("addonrb", "Yes")
 App.addRadioButton("addonrb", "No")
 App.setRadioButton("addonrb", "No", callFunction=False)
 App.setRadioButtonChangeFunction("addonrb", reqw)
-App.addOptionBox("adpropent6", ["image","audio","video","executable"])
-App.entry("adpropent7")
-App.addOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.script",
+App.addOptionBox("adpropent6",[ "xbmc.python.pluginsource", "xbmc.python.script",
     "xbmc.gui.skin", "xbmc.webinterface", "xbmc.addon.repository",
     "xbmc.service", "xbmc.metadata.scraper.albums", "xbmc.metadata.scraper.artists",
     "xbmc.metadata.scraper.movies", "xbmc.metadata.scraper.musicvideos", "xbmc.metadata.scraper.tvshows",
@@ -848,6 +851,8 @@ App.addOptionBox("adpropent8",[ "xbmc.python.pluginsource", "xbmc.python.script"
     "xbmc.addon.audio", "xbmc.addon.image", "kodi.resource.font",
     "kodi.resource.images", "kodi.resource.language", "kodi.resource.uisounds"
 ])
+App.entry("adpropent7")
+App.addOptionBox("adpropent8", ["image","audio","video","executable"])
 App.addHorizontalSeparator(11,0,0,0, colour="blue")
 App.entry("adpropent9")
 App.entry("adpropent10")
@@ -880,55 +885,55 @@ App.entry("adpropent25")
 App.stopLabelFrame()
 App.addHorizontalSeparator(30,0,2,0, colour="red")
 App.addButton("Apply", addonsave,31,0,2,0)
-App.setLabelTooltip("addon1", "label_help_text_here_1")
-App.setEntryTooltip("adpropent1", "entry_help_text_here_1")
-App.setLabelTooltip("addon2", "label_help_text_here_2")
-App.setEntryTooltip("adpropent2", "entry_help_text_here_2")
-App.setLabelTooltip("addon3", "label_help_text_here_3")
-App.setEntryTooltip("adpropent3", "entry_help_text_here_3")
-App.setLabelTooltip("addon4", "label_help_text_here_1")
-App.setEntryTooltip("adpropent4", "entry_help_text_here_4")
-App.setLabelTooltip("addon5", "If clicked will open subwindow")
-App.setRadioButtonTooltip("addonrb", "new window to enter requirements")
-App.setLabelTooltip("addon6", "label_help_text_here_6")
-App.setOptionBoxTooltip("adpropent6", "entry_help_text_here_6")
-App.setLabelTooltip("addon7", "label_help_text_here_7")
-App.setEntryTooltip("adpropent7", "entry_help_text_here_7")
-App.setLabelTooltip("addon8", "label_help_text_here_8")
-App.setOptionBoxTooltip("adpropent8", "entry_help_text_here_8")
-App.setLabelTooltip("addon9", "label_help_text_here_9")
-App.setEntryTooltip("adpropent9", "entry_help_text_here_9")
-App.setLabelTooltip("addon10", "label_help_text_here_10")
-App.setEntryTooltip("adpropent10", "entry_help_text_here_10")
-App.setLabelTooltip("addon11", "label_help_text_here_11")
+App.setLabelTooltip("addon1", "Addon ID")
+App.setEntryTooltip("adpropent1", "Example, plugin.video.videoservice")
+App.setLabelTooltip("addon2", "Human readable name")
+App.setEntryTooltip("adpropent2", "Zjoasans Family video service")
+App.setLabelTooltip("addon3", "Version number")
+App.setEntryTooltip("adpropent3", "This should be use a version scheme like x.y.z (major.minor.patch). For example: version=\"0.0.1\". Generally, you'll start with a version of 0.y.z for test releases and once you feel it is ready for a full release, you'd bump the version to 1.0.0")
+App.setLabelTooltip("addon4", "Input your identifier")
+App.setEntryTooltip("adpropent4", "Like github user name, or an email adress")
+App.setLabelTooltip("addon5", "If clicked will open dialog")
+App.setRadioButtonTooltip("addonrb", "Dialog will ask how many needed(max 8) and then open a subwindow for names")
+App.setLabelTooltip("addon6", "What type of addon you are makeing?")
+App.setOptionBoxTooltip("adpropent6", "Preset extension choice from Kodi")
+App.setLabelTooltip("addon7", "The <extension point=\"xbmc.python.pluginsource\"> element has an extra attribute: library. This is the name of the Python script (startup script) that will be run when the add-on is activated. This file must exist in the root of your add-on directory.")
+App.setEntryTooltip("adpropent7", "Start pythonfile for this addon")
+App.setLabelTooltip("addon8", "This addon provies")
+App.setOptionBoxTooltip("adpropent8", "Kodi predefined types.")
+App.setLabelTooltip("addon9", "Write a short summary of what the add-on does. This should be a single sentence.")
+App.setEntryTooltip("adpropent9", "Remember, keep this short.")
+App.setLabelTooltip("addon10", "Provide a more detailed summary of what the add-on does.")
+App.setEntryTooltip("adpropent10", "Multiline, use shift+enter")
+App.setLabelTooltip("addon11", "disclaimer")
 App.setEntryTooltip("adpropent11", "entry_help_text_here_11")
-App.setLabelTooltip("addon12", "label_help_text_here_12")
+App.setLabelTooltip("addon12", "news")
 App.setEntryTooltip("adpropent12", "entry_help_text_here_12")
-App.setLabelTooltip("addon13", "label_help_text_here_13")
+App.setLabelTooltip("addon13", "platform")
 App.setOptionBoxTooltip("adpropent13", "entry_help_text_here_13")
-App.setLabelTooltip("addon14", "label_help_text_here_14")
+App.setLabelTooltip("addon14", "language")
 App.setOptionBoxTooltip("adpropent14", "entry_help_text_here_14")
-App.setLabelTooltip("addon15", "label_help_text_here_15")
+App.setLabelTooltip("addon15", "license")
 App.setEntryTooltip("adpropent15", "entry_help_text_here_15")
-App.setLabelTooltip("addon16", "label_help_text_here_16")
+App.setLabelTooltip("addon16", "forum")
 App.setEntryTooltip("adpropent16", "entry_help_text_here_16")
-App.setLabelTooltip("addon17", "label_help_text_here_17")
+App.setLabelTooltip("addon17", "website")
 App.setEntryTooltip("adpropent17", "entry_help_text_here_17")
-App.setLabelTooltip("addon18", "label_help_text_here_18")
+App.setLabelTooltip("addon18", "source")
 App.setEntryTooltip("adpropent18", "entry_help_text_here_18")
-App.setLabelTooltip("addon19", "label_help_text_here_19")
+App.setLabelTooltip("addon19", "email")
 App.setEntryTooltip("adpropent19", "entry_help_text_here_19")
-App.setLabelTooltip("addon20", "label_help_text_here_20")
+App.setLabelTooltip("addon20", "Lifecycle state")
 App.setOptionBoxTooltip("adpropent20", "entry_help_text_here_20")
-App.setLabelTooltip("addon21", "label_help_text_here_21")
+App.setLabelTooltip("addon21", "icon")
 App.setEntryTooltip("adpropent21", "entry_help_text_here_21")
-App.setLabelTooltip("addon22", "label_help_text_here_22")
+App.setLabelTooltip("addon22", "fanart")
 App.setEntryTooltip("adpropent22", "entry_help_text_here_22")
-App.setLabelTooltip("addon23", "label_help_text_here_23")
+App.setLabelTooltip("addon23", "screenshot")
 App.setEntryTooltip("adpropent23", "entry_help_text_here_23")
-App.setLabelTooltip("addon24", "label_help_text_here_24")
+App.setLabelTooltip("addon24", "banner")
 App.setEntryTooltip("adpropent24", "entry_help_text_here_24")
-App.setLabelTooltip("addon25", "label_help_text_here_25")
+App.setLabelTooltip("addon25", "clearlogo")
 App.setEntryTooltip("adpropent25", "entry_help_text_here_25")
 App.stopSubWindow()
 
