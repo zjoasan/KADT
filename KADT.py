@@ -95,8 +95,14 @@ cpostring = ("# Addon language file \n"
 "msgstr \"\"\n"
 "\n")
 
-settingxml = ("<settings>\n"
-    "<category label=\"32000\">\n")
+settingoxml = ("<?xml version=\"1.0" ?> \n"
+"<settings version=\"1\"> \n"
+"<section id=\""+ addonname +""> \n"
+"<category label=\"32000\"> \n")
+
+settingexml = ("</category> \n"
+"</section> \n"
+"</settings> \n")
 
 # Toolbar options
 tools = ["-SEP-", "TEXT", "IP#", "NUMBER", "DATE", "TIME",
@@ -694,7 +700,7 @@ def TbFunc( button ):
     App.clearTextArea("xmltext")
     for x in range(len(objtype)):
         aettingxml = aettingxml + addxml(objtype[x],x)
-    tmpxml = settingxml + aettingxml
+    tmpxml = settingoxml + aettingxml + settingexml
     App.setTextArea("xmltext", tmpxml)
     App.stopTab()
 
