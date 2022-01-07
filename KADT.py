@@ -95,9 +95,9 @@ cpostring = ("# Addon language file \n"
 "msgstr \"\"\n"
 "\n")
 
-settingoxml = ("<?xml version=\"1.0" ?> \n"
+settingoxml = ("<?xml version=\"1.0\" ?> \n"
 "<settings version=\"1\"> \n"
-"<section id=\""+ addonname +""> \n"
+"<section id=\""+ addonname +"\"> \n"
 "<category label=\"32000\"> \n")
 
 settingexml = ("</category> \n"
