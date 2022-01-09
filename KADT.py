@@ -22,6 +22,7 @@ reqimp = ""
 numreq = 0
 lcsa = ""
 elename = ""
+addonid = "not_set_yet"
 addonname = "not_set_yet"
 addonlang = "not_set_yet"
 focelename = "notusedyet"
@@ -74,6 +75,9 @@ elementlist = [
 ]
 
 cpostring = ("# Addon language file \n"
+"# Addon Name: "+ addonname +"\n"
+"# Addon id: "+ addonid +"\n"
+"# Addon Provider: insert your name here \n"
 "msgid \"\"\n"
 "msgstr \"\"\n"
 "\"Project-Id-Version: \n\""
@@ -88,8 +92,6 @@ cpostring = ("# Addon language file \n"
 "\"Language: " + addonlang + "\n\""
 "\"Plural-Forms: nplurals=2; plural=(n != 1);\n\""
 "\n"
-"#. Strings for "+ addonname +"\n"  #replace $addonname name with addon-properties window in the future
-"\n"
 "msgctxt \"#32000\" \n"
 "msgid \""+ addonname +" Configuration\" \n"
 "msgstr \"\"\n"
@@ -98,9 +100,11 @@ cpostring = ("# Addon language file \n"
 settingoxml = ("<?xml version=\"1.0\" ?> \n"
 "<settings version=\"1\"> \n"
 "<section id=\""+ addonname +"\"> \n"
-"<category label=\"32000\"> \n")
+"<category id=\"general\" label=\"\" help=\"\">\n"
+"<group id=\"1\" label=\"32000\">")
 
-settingexml = ("</category> \n"
+settingexml = ("</group> \n"
+"</category> \n"
 "</section> \n"
 "</settings> \n")
 
@@ -150,10 +154,11 @@ def addpop():
     return
 
 def addonsave():
-    global reqimp, lcsa, addonlang, addonname
+    global reqimp, lcsa, addonlang, addonname, addonid
     adlang = str(App.getOptionBox("adpropent14"))
     prov_lang = adlang[:2]
     App.hideSubWindow("Addon")
+    addonid = App.getEntry("adpropent1")
     addonname = App.getEntry("adpropent2")
     addtxt = ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
         "<addon id=\"" + App.getEntry("adpropent1") + "\" name=\"" + App.getEntry("adpropent2") + "\" version=\"" + App.getEntry("adpropent3") + "\" provider-name=\"" + App.getEntry("adpropent4") + "\">\n"
