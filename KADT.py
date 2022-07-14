@@ -906,7 +906,7 @@ App.hideEntry('reqent7v')
 App.hideEntry('reqent8')
 App.hideEntry('reqent8v')
 App.setSticky('ews')
-App.addButton("Save", reqsave,10,0,2,0)
+App.addButton("SaveReq", reqsave,10,0,2,0)
 App.stopSubWindow()
 
 #Subwindow for options in elementyoes select,enum,labelenum
@@ -951,7 +951,7 @@ App.hideEntry('optent7v')
 App.hideEntry('optent8')
 App.hideEntry('optent8v')
 App.setSticky('ews')
-App.addButton("Save", optsave,10,0,2,0)
+App.addButton("SaveOpt", optsave,10,0,2,0)
 App.stopSubWindow()
 
 #Settings for addon.xml
